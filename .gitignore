@@ -10,3 +10,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 /pb_*
+!/pb_schema.json
