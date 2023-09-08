@@ -6,7 +6,7 @@
 		"start": "hivemind Procfile",
 		"dev": "vite dev",
 		"build": "vite build",
-		"fmt": "prettier --write ."
+		"fmt": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^2.0.3",
