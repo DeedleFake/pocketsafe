@@ -4,14 +4,20 @@ import (
 	"log/slog"
 	"os"
 
+	_ "deedles.dev/pocketsafe/migrations"
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
 
 func main() {
 	pb := pocketbase.New()
+	migratecmd.MustRegister(pb, pb.RootCmd, migratecmd.Config{
+		Automigrate: enableMigrations,
+	})
+
 	pb.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		e.Router.GET("/*", apis.StaticDirectoryHandler(
 			echo.MustSubFS(buildFS, "build"),

@@ -9,3 +9,5 @@ import (
 )
 
 var buildFS = echo.MustSubFS(os.DirFS("."), "build")
+
+const enableMigrations = true
