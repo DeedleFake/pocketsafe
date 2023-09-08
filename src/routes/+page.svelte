@@ -1,18 +1,5 @@
 <script>
-	export let data
-
-  let num = 0
+	import Link from '$lib/Link.svelte'
 </script>
 
-<button
-  class="px-4 py-2 text-white bg-sky-500 rounded-full hover:bg-sky-700 active:bg-sky-600"
-  on:click={() => {
-    num++
-  }}
->
-  Clicked: {num}
-</button>
-
-{#each data.files.items as file}
-	{file}<br />
-{/each}
+<Link href='/login'>Login</Link>
