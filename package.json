@@ -1,35 +1,26 @@
 {
-  "name": "pocketsafe",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "run-p -l vite pocketbase",
-    "vite": "vite dev | cat",
-    "pocketbase": "pocketbase serve --http [::1]:8090 --publicDir dist",
-    "build": "vite build",
-    "fmt": "prettier --plugin-search-dir . --write ."
-  },
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^2.0.3",
-    "@sveltejs/kit": "^1.20.4",
-    "autoprefixer": "^10.4.15",
-    "npm-run-all": "^4.1.5",
-    "pocketbase": "^0.18.0",
-    "postcss": "^8.4.29",
-    "prettier": "^2.8.8",
-    "prettier-plugin-svelte": "^2.10.1",
-    "svelte": "^4.0.5",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.2"
-  },
-  "type": "module",
-  "prettier": {
-    "useTabs": false,
-    "semi": false,
-    "singleQuote": true,
-    "bracketSpacing": true,
-    "arrowParens": "always",
-    "trailingComma": "all",
-    "svelteSortOrder": "options-scripts-styles-markup"
-  }
+	"name": "pocketsafe",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "run-p -l vite pocketbase",
+		"vite": "vite dev | cat",
+		"pocketbase": "pocketbase serve --http [::1]:8090 --publicDir build",
+		"build": "vite build",
+		"fmt": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^2.0.3",
+		"@sveltejs/kit": "^1.20.4",
+		"autoprefixer": "^10.4.15",
+		"npm-run-all": "^4.1.5",
+		"pocketbase": "^0.18.0",
+		"postcss": "^8.4.29",
+		"prettier": "^2.8.8",
+		"prettier-plugin-svelte": "^2.10.1",
+		"svelte": "^4.0.5",
+		"tailwindcss": "^3.3.3",
+		"vite": "^4.4.2"
+	},
+	"type": "module"
 }
