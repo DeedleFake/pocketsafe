@@ -1,6 +1,6 @@
 <script>
 	import Link from '$lib/Link.svelte'
-	import { pb, currentUser } from '$lib/pocketbase.js'
+	import { pb, currentUser, assertLogin } from '$lib/pocketbase.js'
 
 	function logout(ev) {
 		ev.preventDefault()

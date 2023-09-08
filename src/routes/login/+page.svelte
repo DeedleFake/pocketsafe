@@ -3,8 +3,10 @@
 
 	import { pb, currentUser } from '$lib/pocketbase.js'
 
+	export let redirect = '/'
+
 	$: if ($currentUser) {
-		goto('/')
+		goto(redirect)
 	}
 
 	let email = ''
@@ -14,7 +16,7 @@
 	async function login() {
 		try {
 			await pb.collection('users').authWithPassword(email, password)
-			await goto('/')
+			await goto(redirect)
 		} catch (err) {
 			console.error(err)
 			error = error(400, 'Incorrect login information.')
