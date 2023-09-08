@@ -1,7 +1,9 @@
 import PocketBase from 'pocketbase'
 
+export const ssr = false
+
 export async function load() {
-	const pb = new PocketBase('http://[::1]:8090')
+	const pb = new PocketBase(window.location.origin)
 
 	return {
 		pb,

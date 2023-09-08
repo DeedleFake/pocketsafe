@@ -1,2 +1,2 @@
 vite: pnpm dev | cat
-pocketbase: pocketbase serve --http [::1]:8090 --publicDir build
+pocketbase: go run -v -tags ps_dev . serve --http [::1]:8090
