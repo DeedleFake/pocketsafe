@@ -1,1 +1,1 @@
-<h2 class="text-red">Not implemented.</h2>
+<h2>Not implemented.</h2>
