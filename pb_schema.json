@@ -133,5 +133,52 @@
     "updateRule": "owner.id = @request.auth.id",
     "deleteRule": "owner.id = @request.auth.id",
     "options": {}
+  },
+  {
+    "id": "shrh338gfz9vjlf",
+    "name": "tags",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "zxq2ofke",
+        "name": "name",
+        "type": "text",
+        "required": true,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": "^[a-zA-Z0-9_()]$"
+        }
+      },
+      {
+        "system": false,
+        "id": "zehqu5zx",
+        "name": "files",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "8cepxa27n3hwsng",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": null,
+          "displayFields": null
+        }
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_rdgwnwn` ON `tags` (`name`)"
+    ],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
   }
 ]
