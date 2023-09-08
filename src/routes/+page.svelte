@@ -1,4 +1,6 @@
 <script>
+	export let data
+
   let num = 0
 </script>
 
@@ -10,3 +12,7 @@
 >
   Clicked: {num}
 </button>
+
+{#each data.files.items as file}
+	{file}<br />
+{/each}

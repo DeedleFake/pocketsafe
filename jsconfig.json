@@ -5,7 +5,9 @@
 		"paths": {
 			"~lib/*": ["src/lib/*"],
 			"~routes/*": ["src/routes/*"],
-			"~/*": ["src/*"]
+			"~/*": ["src/*"],
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"]
 		}
 	}
 }
