@@ -1,3 +1,3 @@
-/pnpm-lock.yaml binary
 /migrations/** binary
 /build/** binary
+*.lockb diff=lockb
