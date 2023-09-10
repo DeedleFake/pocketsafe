@@ -1,6 +1,8 @@
 <script>
 	import { goto } from '$app/navigation'
 
+	import TextInput from '$lib/TextInput.svelte'
+	import Button from '$lib/Button.svelte'
 	import { pb, currentUser } from '$lib/pocketbase.js'
 
 	export let redirect = '/'
@@ -29,17 +31,7 @@
 {/if}
 
 <form class="flex flex-col items-start gap-4" on:submit|preventDefault={login}>
-	<input
-		type="text"
-		name="email"
-		placeholder="E-mail address..."
-		bind:value={email}
-	/>
-	<input
-		type="password"
-		name="password"
-		placeholder="Password..."
-		bind:value={password}
-	/>
-	<input type="submit" value="Login" />
+	<TextInput placeholder="E-mail address..." bind:value={email} />
+	<TextInput password placeholder="Password..." bind:value={password} />
+	<Button type="submit" disabled={!email || !password}>Login</Button>
 </form>

@@ -8,9 +8,11 @@
 	}
 </script>
 
-{#if !$currentUser}
-	<Link href="/login">Login</Link>
-{:else}
-	<Link on:click={logout}>Logout</Link>
-	<h2>Greetings, {$currentUser.username}.</h2>
-{/if}
+<div class="w-100% h-100% flex justify-center items-center">
+	{#if !$currentUser}
+		<Link button href="/login">Login</Link>
+	{:else}
+		<Link button on:click={logout}>Logout</Link>
+		<h2>Greetings, {$currentUser.username}.</h2>
+	{/if}
+</div>
