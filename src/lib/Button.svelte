@@ -7,7 +7,6 @@
 
 	$: mode = secondary
 		? `
-			text-white
 			bg-teal-500
 			border-teal-400
 			hover:bg-teal-600
@@ -19,7 +18,6 @@
 			disabled:border-teal-300
 			`
 		: `
-			text-white
 			bg-cyan-500
 			border-cyan-400
 			hover:bg-cyan-600
@@ -43,7 +41,7 @@
 </script>
 
 <button
-	class="px-2 border-4 rounded-2xl {mode} {extraStyle}"
+	class="px-2 border-4 rounded-2xl text-white transition-all {mode} {extraStyle}"
 	{...$$restProps}
 	on:click={click}
 >

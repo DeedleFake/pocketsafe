@@ -12,6 +12,7 @@
 
 <div
 	class="
+		group
 		flex
 		flex-col
 		p-2
@@ -19,17 +20,28 @@
 		rounded-2xl
 		shadow-lg
 		bg-slate-100
+		transition-all
 		dark:bg-slate-900
-		dark:shadow-none
 		dark:outline
 		dark:outline-2
 		dark:outline-cyan-900
+		hover:shadow-xl
 		{sizeStyle}
 		{extraStyle}
 	"
 >
 	<div
-		class="flex flex-col grow justify-center items-center rounded-lg overflow-hidden"
+		class="
+		 flex
+		 flex-col
+		 grow
+		 justify-center
+		 items-center
+		 rounded-lg
+		 overflow-hidden
+		 transition-all
+		 group-hover:opacity-80
+		"
 	>
 		<slot name="image" />
 	</div>

@@ -5,7 +5,7 @@
 </script>
 
 <a
-	class="text-cyan-500 hover:text-cyan-600 active:text-cyan-700 {extraStyle}"
+	class="text-cyan-500 hover:text-cyan-600 active:text-cyan-700 transition-all {extraStyle}"
 	{href}
 	{...$$restProps}
 >

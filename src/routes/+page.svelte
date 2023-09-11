@@ -57,7 +57,7 @@
 
 <Nav>
 	<svelte:fragment slot="start">
-		<Link class="hover:opacity-50" href="/">
+		<Link class="hover:opacity-50 transition-all" href="/">
 			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
 		</Link>
 		{#if $currentUser}
