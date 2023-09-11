@@ -32,10 +32,7 @@
 {/if}
 
 <Body>
-	<form
-		class="flex flex-col items-end gap-4"
-		on:submit|preventDefault={login}
-	>
+	<form class="flex flex-col items-end gap-4" on:submit|preventDefault={login}>
 		<TextInput placeholder="E-mail address..." bind:value={email} />
 		<TextInput password placeholder="Password..." bind:value={password} />
 		<Button type="submit" disabled={!email || !password}>Login</Button>

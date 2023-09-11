@@ -18,6 +18,8 @@
 		gap-2
 		rounded-2xl
 		shadow-lg
+		bg-slate-100
+		dark:bg-slate-900
 		dark:shadow-none
 		dark:outline
 		dark:outline-2
