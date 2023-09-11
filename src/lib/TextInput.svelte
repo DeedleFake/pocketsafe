@@ -8,11 +8,13 @@
 		py-1
 		rounded-2xl
 		border-4
+		transition-all
 		text-slate-100
+		outline-none
 		border-cyan-500
 		dark:text-slate-800
 		hover:border-cyan-600
-		active:border-cyan-700
+		focus:border-cyan-700
 		disabled:bg-cyan-200
 		disabled:text-cyan-700
 		disabled:border-cyan-300
