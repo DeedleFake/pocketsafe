@@ -90,7 +90,12 @@
 				{#each files.items as file}
 					<Link href={pb.files.getUrl(file, file.file)}>
 						<Card size="lg">
-							<img slot="image" src={thumbnail(file)} alt={file.name} />
+							<img
+								slot="image"
+								class="rounded-lg grow object-cover"
+								src={thumbnail(file)}
+								alt={file.file}
+							/>
 							<div slot="subtitle">{file.name}</div>
 						</Card>
 					</Link>

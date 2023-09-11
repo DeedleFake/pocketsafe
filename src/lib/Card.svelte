@@ -28,7 +28,9 @@
 		{extraStyle}
 	"
 >
-	<div class="flex grow justify-center items-center overflow-hidden">
+	<div
+		class="flex flex-col grow justify-center items-center rounded-lg overflow-hidden"
+	>
 		<slot name="image" />
 	</div>
 	{#if $$slots['subtitle']}
