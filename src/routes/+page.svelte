@@ -2,6 +2,7 @@
 	import Link from '$lib/Link.svelte'
 	import Card from '$lib/Card.svelte'
 	import Grid from '$lib/Grid.svelte'
+	import Button from '$lib/Button.svelte'
 	import { pb, currentUser, assertLogin } from '$lib/pocketbase.js'
 
 	let files = null
@@ -44,9 +45,9 @@
 </script>
 
 {#if !$currentUser}
-	<Link button href="/login">Login</Link>
+	<Button href="/login">Login</Button>
 {:else}
-	<Link button on:click={logout}>Logout</Link>
+	<Button on:click={logout}>Logout</Button>
 	<h2>Greetings, {$currentUser.username}.</h2>
 
 	{#await files}
@@ -55,7 +56,7 @@
 		{#if files.totalItems == 0}
 			No files.
 		{/if}
-		<Link button on:click={() => fileInput.click()}>Add</Link>
+		<Button on:click={() => fileInput.click()}>Add</Button>
 		<Grid>
 			<input
 				type="file"

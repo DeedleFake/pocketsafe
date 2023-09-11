@@ -1,10 +1,51 @@
 <script>
+	import { createEventDispatcher } from 'svelte'
+	import { goto } from '$app/navigation'
+
+	export let href = null
 	export let secondary = false
 
-	$: style = 'btn ' + (secondary ? 'btn-secondary' : 'btn-primary')
+	$: mode = secondary
+		? `
+			text-white
+			bg-teal-500
+			border-teal-400
+			hover:bg-teal-600
+			hover:border-teal-500
+			active:bg-teal-700
+			active:border-teal-600
+			disabled:bg-teal-200
+			disabled:text-teal-700
+			disabled:border-teal-300
+			`
+		: `
+			text-white
+			bg-cyan-500
+			border-cyan-400
+			hover:bg-cyan-600
+			hover:border-cyan-500
+			active:bg-cyan-700
+			active:border-cyan-600
+			disabled:bg-cyan-200
+			disabled:text-cyan-700
+			disabled:border-cyan-300
+			`
 	$: extraStyle = $$props['class'] ?? ''
+
+	const dispatch = createEventDispatcher()
+
+	async function click(ev) {
+		const ok = dispatch('click', ev, { cancelable: true })
+		if (ok && href) {
+			await goto(href)
+		}
+	}
 </script>
 
-<button class="{style} {extraStyle}" {...$$restProps}>
+<button
+	class="px-2 border-4 rounded-2xl {mode} {extraStyle}"
+	{...$$restProps}
+	on:click={click}
+>
 	<slot />
 </button>
