@@ -10,8 +10,28 @@
 	$: extraStyle = $$props['class']
 </script>
 
-<div class="{sizeStyle} flex flex-col p-2 rounded-lg shadow-lg {extraStyle}">
+<div
+	class="
+		flex
+		flex-col
+		p-2
+		gap-2
+		rounded-2xl
+		shadow-lg
+		dark:shadow-none
+		dark:outline
+		dark:outline-2
+		dark:outline-cyan-900
+		{sizeStyle}
+		{extraStyle}
+	"
+>
 	<div class="flex grow justify-center items-center">
 		<slot name="image" />
 	</div>
+	{#if $$slots['subtitle']}
+		<div class="flex flex-col items-center overflow-x-auto">
+			<slot name="subtitle" />
+		</div>
+	{/if}
 </div>

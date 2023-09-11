@@ -14,7 +14,6 @@
 	}
 
 	function logout(ev) {
-		ev.preventDefault()
 		pb.authStore.clear()
 	}
 
@@ -37,6 +36,11 @@
 
 		newFiles = null
 		await loadFiles()
+	}
+
+	function thumbnail(file) {
+		// TODO: Use a default image for files that aren't images.
+		return pb.files.getUrl(file, file.file, { thumb: '96x96f' })
 	}
 
 	$: if ($currentUser) {
@@ -67,11 +71,8 @@
 			{#each files.items as file}
 				<Link href={pb.files.getUrl(file, file.file)}>
 					<Card size="lg">
-						<img
-							slot="image"
-							src={pb.files.getUrl(file, file.file, { thumb: '96x96f' })}
-							alt={file.name}
-						/>
+						<img slot="image" src={thumbnail(file)} alt={file.name} />
+						<div slot="subtitle">{file.name}</div>
 					</Card>
 				</Link>
 			{/each}
