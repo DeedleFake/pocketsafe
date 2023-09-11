@@ -1,5 +1,6 @@
 <div
 	class="
+		min-h-8
 		p-2
 		flex
 		flex-row
@@ -11,5 +12,6 @@
 	"
 >
 	<div class="flex flex-row gap-2 items-center"><slot name="start" /></div>
+	<div class="flex flex-row gap-2 items-center"><slot name="middle" /></div>
 	<div class="flex flex-row gap-2 items-center"><slot name="end" /></div>
 </div>

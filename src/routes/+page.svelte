@@ -1,10 +1,13 @@
 <script>
+	import { assets } from '$app/paths'
+
 	import Nav from '$lib/Nav.svelte'
 	import Body from '$lib/Body.svelte'
 	import Link from '$lib/Link.svelte'
 	import Card from '$lib/Card.svelte'
 	import Grid from '$lib/Grid.svelte'
 	import Button from '$lib/Button.svelte'
+	import Login from '$lib/Login.svelte'
 
 	import { pb, currentUser, assertLogin } from '$lib/pocketbase.js'
 
@@ -53,6 +56,9 @@
 
 <Nav>
 	<svelte:fragment slot="start">
+		<Link class="hover:opacity-50" href="/">
+			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
+		</Link>
 		{#if $currentUser}
 			<Button on:click={() => fileInput.click()}>Upload</Button>
 			<input
@@ -64,9 +70,7 @@
 		{/if}
 	</svelte:fragment>
 	<svelte:fragment slot="end">
-		{#if !$currentUser}
-			<Button href="/login">Login</Button>
-		{:else}
+		{#if $currentUser}
 			<div>{$currentUser.username}</div>
 			<Button on:click={logout}>Logout</Button>
 		{/if}
@@ -92,5 +96,7 @@
 				{/each}
 			</Grid>
 		{/await}
+	{:else}
+		<Login />
 	{/if}
 </Body>
