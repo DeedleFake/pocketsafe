@@ -3,6 +3,7 @@
 
 	import TextInput from '$lib/TextInput.svelte'
 	import Button from '$lib/Button.svelte'
+	import Body from '$lib/Body.svelte'
 	import { pb, currentUser } from '$lib/pocketbase.js'
 
 	export let redirect = '/'
@@ -30,8 +31,13 @@
 	<span class="text-red-500">{error}</span>
 {/if}
 
-<form class="flex flex-col items-start gap-4" on:submit|preventDefault={login}>
-	<TextInput placeholder="E-mail address..." bind:value={email} />
-	<TextInput password placeholder="Password..." bind:value={password} />
-	<Button type="submit" disabled={!email || !password}>Login</Button>
-</form>
+<Body>
+	<form
+		class="flex flex-col items-end gap-4"
+		on:submit|preventDefault={login}
+	>
+		<TextInput placeholder="E-mail address..." bind:value={email} />
+		<TextInput password placeholder="Password..." bind:value={password} />
+		<Button type="submit" disabled={!email || !password}>Login</Button>
+	</form>
+</Body>

@@ -2,4 +2,6 @@
 	import '$lib/app.css'
 </script>
 
-<slot />
+<div class="flex flex-col justify-start min-h-screen">
+	<slot />
+</div>
