@@ -8,8 +8,9 @@
 	import Grid from '$lib/Grid.svelte'
 	import Button from '$lib/Button.svelte'
 	import Login from '$lib/Login.svelte'
+	import CircularProgress from '$lib/CircularProgress.svelte'
 
-	import { pb, currentUser, assertLogin } from '$lib/pocketbase.js'
+	import { pb, currentUser } from '$lib/pocketbase.js'
 
 	let files = null
 	let fileInput = null
@@ -80,7 +81,7 @@
 <Body>
 	{#if $currentUser}
 		{#await files}
-			Loading...
+			<CircularProgress />
 		{:then files}
 			{#if files.totalItems == 0}
 				No files.
