@@ -3,15 +3,29 @@
 @tailwind utilities;
 
 @layer components {
+	.btn {
+		@apply px-2
+			py-1
+			m-1
+			ring
+			rounded-full;
+	}
+
 	.btn-primary {
-		@apply px-4
-			py-2
-			rounded-full
-			text-white
-			bg-sky-500
-			hover:bg-sky-700
-			active:bg-sky-600
-			disabled:bg-sky-900
-			disabled:text-sky-600;
+		@apply text-white
+			bg-cyan-500
+			hover:bg-cyan-700
+			active:bg-cyan-600
+			disabled:bg-cyan-900
+			disabled:text-cyan-600;
+	}
+
+	.btn-secondary {
+		@apply text-white
+		bg-teal-500
+		hover:bg-teal-700
+		active:bg-teal-600
+		disabled:bg-teal-900
+		disabled:text-teal-600;
 	}
 }
