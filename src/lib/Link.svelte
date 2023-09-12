@@ -8,6 +8,7 @@
 	class="text-cyan-500 hover:text-cyan-600 active:text-cyan-700 transition-all {extraStyle}"
 	{href}
 	{...$$restProps}
+	on:click
 >
 	<slot />
 </a>

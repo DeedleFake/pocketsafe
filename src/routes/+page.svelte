@@ -3,23 +3,21 @@
 
 	import Nav from '$lib/Nav.svelte'
 	import Body from '$lib/Body.svelte'
+	import UploadButton from '$lib/UploadButton.svelte'
+	import Search from '$lib/Search.svelte'
+	import Pager from '$lib/Pager.svelte'
+	import Login from '$lib/Login.svelte'
 	import Grid from '$lib/Grid.svelte'
 	import Card from '$lib/Card.svelte'
 	import Link from '$lib/Link.svelte'
 	import Button from '$lib/Button.svelte'
 	import CircularProgress from '$lib/CircularProgress.svelte'
-	import UploadButton from '$lib/UploadButton.svelte'
-	import Login from '$lib/Login.svelte'
 
 	import { pb, currentUser } from '$lib/pocketbase.js'
 
 	let files = null
-	let fileInput = null
-	let newFiles = null
-
-	$: if (newFiles) {
-		upload()
-	}
+	let page = 1
+	let filter = ''
 
 	$: if ($currentUser) {
 		loadFiles()
@@ -29,8 +27,17 @@
 		pb.authStore.clear()
 	}
 
-	function loadFiles() {
-		files = pb.collection('files').getList(1, 30, { sort: '-created' })
+	function loadFiles(options = {}) {
+		files = pb.collection('files').getList(page, 30, {
+			sort: '-created',
+			filter: `name~"${encodeURIComponent(filter)}"`,
+			...options,
+		})
+	}
+
+	function search() {
+		page = 1
+		loadFiles()
 	}
 
 	function thumbnail(file) {
@@ -48,6 +55,11 @@
 			<UploadButton on:upload={loadFiles} />
 		{/if}
 	</svelte:fragment>
+
+	<svelte:fragment slot="middle">
+		<Search bind:value={filter} on:submit={search} />
+	</svelte:fragment>
+
 	<svelte:fragment slot="end">
 		{#if $currentUser}
 			<div>{$currentUser.username}</div>
@@ -79,6 +91,13 @@
 					</Link>
 				{/each}
 			</Grid>
+
+			<Pager
+				current={files.page}
+				pages={files.totalPages}
+				bind:page
+				on:change={() => loadFiles()}
+			/>
 		{/await}
 	{:else}
 		<Login />
