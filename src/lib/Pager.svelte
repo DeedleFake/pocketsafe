@@ -5,31 +5,33 @@
 
 	const dispatch = createEventDispatcher()
 
-	export let current
-	export let pages
-
 	export let page = 1
+	export let pages = 1
+
+	$: if (page > pages) {
+		select(null, pages)
+	}
 
 	function select(ev, p) {
-		ev.preventDefault()
+		ev?.preventDefault()
 		page = p
 		dispatch('change', p)
 	}
 </script>
 
 <div class="flex flex-row justify-between items-center gap-4">
-	{#if current !== 1}
+	{#if page !== 1}
 		<Link on:click={(ev) => select(ev, 1)}>1</Link>
 		<div>...</div>
 	{/if}
-	{#each [current - 2, current - 1, current, current + 1, current + 2] as p}
-		{#if p === current}
-			<div>{current}</div>
+	{#each [page - 2, page - 1, page, page + 1, page + 2] as p}
+		{#if p === page}
+			<div>{page}</div>
 		{:else if p > 1 && p < pages}
 			<Link on:click={(ev) => select(ev, p)}>{p}</Link>
 		{/if}
 	{/each}
-	{#if current !== pages}
+	{#if page !== pages}
 		<div>...</div>
 		<Link on:click={(ev) => select(ev, pages)}>{pages}</Link>
 	{/if}

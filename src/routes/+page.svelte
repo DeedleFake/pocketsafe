@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte'
 	import { assets } from '$app/paths'
 
 	import Nav from '$lib/Nav.svelte'
@@ -14,6 +15,7 @@
 	import CircularProgress from '$lib/CircularProgress.svelte'
 
 	import { pb, currentUser } from '$lib/pocketbase.js'
+	import { fragment } from '$lib/fragment.js'
 
 	let files = null
 	let page = 1
@@ -23,11 +25,46 @@
 		loadFiles()
 	}
 
+	$: {
+		const parts = []
+		if (page !== 1) {
+			parts.push(`page=${encodeURIComponent(page)}`)
+		}
+		if (filter) {
+			parts.push(`filter=${encodeURIComponent(filter)}`)
+		}
+		$fragment = parts.join('&')
+	}
+
+	{
+		let changed = false
+
+		const p = parseInt($fragment.get('page'))
+		if (!isNaN(p)) {
+			page = p
+			changed = true
+		}
+
+		const f = $fragment.get('filter')
+		if (f) {
+			filter = f
+			changed = true
+		}
+
+		if (changed && $currentUser) {
+			loadFiles()
+		}
+	}
+
 	function logout(ev) {
 		pb.authStore.clear()
 	}
 
-	function loadFiles(options = {}) {
+	async function loadFiles(options = {}) {
+		if (files != null) {
+			await files
+		}
+
 		files = pb.collection('files').getList(page, 30, {
 			sort: '-created',
 			filter: `name~"${encodeURIComponent(filter)}"`,
@@ -35,9 +72,15 @@
 		})
 	}
 
-	function search() {
+	async function search() {
 		page = 1
-		loadFiles()
+		await loadFiles()
+	}
+
+	async function changePage(ev) {
+		const { detail: p } = ev
+		page = p
+		await loadFiles()
 	}
 
 	function thumbnail(file) {
@@ -52,7 +95,12 @@
 			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
 		</Link>
 		{#if $currentUser}
-			<UploadButton on:upload={loadFiles} />
+			<UploadButton
+				on:upload={() => {
+					page = 1
+					loadFiles()
+				}}
+			/>
 		{/if}
 	</svelte:fragment>
 
@@ -92,12 +140,7 @@
 				{/each}
 			</Grid>
 
-			<Pager
-				current={files.page}
-				pages={files.totalPages}
-				bind:page
-				on:change={() => loadFiles()}
-			/>
+			<Pager {page} pages={files.totalPages} on:change={changePage} />
 		{/await}
 	{:else}
 		<Login />
