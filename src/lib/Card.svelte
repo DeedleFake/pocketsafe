@@ -36,7 +36,7 @@
 		 flex-col
 		 grow
 		 justify-center
-		 items-center
+		 items-stretch
 		 rounded-lg
 		 overflow-hidden
 		 transition-all

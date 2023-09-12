@@ -3,12 +3,13 @@
 
 	import Nav from '$lib/Nav.svelte'
 	import Body from '$lib/Body.svelte'
-	import Link from '$lib/Link.svelte'
-	import Card from '$lib/Card.svelte'
 	import Grid from '$lib/Grid.svelte'
+	import Card from '$lib/Card.svelte'
+	import Link from '$lib/Link.svelte'
 	import Button from '$lib/Button.svelte'
-	import Login from '$lib/Login.svelte'
 	import CircularProgress from '$lib/CircularProgress.svelte'
+	import UploadButton from '$lib/UploadButton.svelte'
+	import Login from '$lib/Login.svelte'
 
 	import { pb, currentUser } from '$lib/pocketbase.js'
 
@@ -20,6 +21,10 @@
 		upload()
 	}
 
+	$: if ($currentUser) {
+		loadFiles()
+	}
+
 	function logout(ev) {
 		pb.authStore.clear()
 	}
@@ -28,30 +33,9 @@
 		files = pb.collection('files').getList(1, 30, { sort: '-created' })
 	}
 
-	async function upload() {
-		let uploads = []
-		for (const file of newFiles) {
-			uploads.push(
-				pb.collection('files').create({
-					name: file.name,
-					file: file,
-					owner: $currentUser.id,
-				}),
-			)
-		}
-		await Promise.all(uploads)
-
-		newFiles = null
-		await loadFiles()
-	}
-
 	function thumbnail(file) {
 		// TODO: Use a default image for files that aren't images.
 		return pb.files.getUrl(file, file.file, { thumb: '96x96f' })
-	}
-
-	$: if ($currentUser) {
-		loadFiles()
 	}
 </script>
 
@@ -61,13 +45,7 @@
 			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
 		</Link>
 		{#if $currentUser}
-			<Button on:click={() => fileInput.click()}>Upload</Button>
-			<input
-				type="file"
-				class="hidden"
-				bind:this={fileInput}
-				bind:files={newFiles}
-			/>
+			<UploadButton on:upload={loadFiles} />
 		{/if}
 	</svelte:fragment>
 	<svelte:fragment slot="end">
