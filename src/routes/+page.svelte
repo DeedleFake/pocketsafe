@@ -14,47 +14,13 @@
 	import Button from '$lib/Button.svelte'
 	import CircularProgress from '$lib/CircularProgress.svelte'
 
-	import { pb, currentUser } from '$lib/pocketbase.js'
-	import { fragment } from '$lib/fragment.js'
+	import { pb, currentUser, thumbnail } from '$lib/pocketbase.js'
+	import { fragment, fragmentVar, rehash } from '$lib/fragment.js'
 
 	let files = null
-	let page = 1
-	let filter = ''
 
-	$: if ($currentUser) {
-		loadFiles()
-	}
-
-	$: {
-		const parts = []
-		if (page !== 1) {
-			parts.push(`page=${encodeURIComponent(page)}`)
-		}
-		if (filter) {
-			parts.push(`filter=${encodeURIComponent(filter)}`)
-		}
-		$fragment = parts.join('&')
-	}
-
-	{
-		let changed = false
-
-		const p = parseInt($fragment.get('page'))
-		if (!isNaN(p)) {
-			page = p
-			changed = true
-		}
-
-		const f = $fragment.get('filter')
-		if (f) {
-			filter = f
-			changed = true
-		}
-
-		if (changed && $currentUser) {
-			loadFiles()
-		}
-	}
+	const page = fragmentVar('page', 1, (v) => parseInt(v, 10))
+	const filter = fragmentVar('filter', '')
 
 	function logout(ev) {
 		pb.authStore.clear()
@@ -65,27 +31,31 @@
 			await files
 		}
 
-		files = pb.collection('files').getList(page, 30, {
+		files = pb.collection('files').getList($page, 30, {
 			sort: '-created',
-			filter: `name~"${encodeURIComponent(filter)}"`,
+			filter: `name~"${encodeURIComponent($filter)}"`,
 			...options,
 		})
 	}
 
-	async function search() {
-		page = 1
-		await loadFiles()
+	function search(ev) {
+		const { detail: f } = ev
+		$page = 1
+		$filter = f
 	}
 
-	async function changePage(ev) {
-		const { detail: p } = ev
-		page = p
-		await loadFiles()
-	}
+	$: if ($currentUser) {
+		let changed = false
+		if (!isNaN($page)) {
+			changed = true
+		}
+		if ($filter) {
+			changed = true
+		}
 
-	function thumbnail(file) {
-		// TODO: Use a default image for files that aren't images.
-		return pb.files.getUrl(file, file.file, { thumb: '96x96f' })
+		if (changed) {
+			loadFiles()
+		}
 	}
 </script>
 
@@ -95,17 +65,12 @@
 			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
 		</Link>
 		{#if $currentUser}
-			<UploadButton
-				on:upload={() => {
-					page = 1
-					loadFiles()
-				}}
-			/>
+			<UploadButton on:upload={() => ($page = 1)} />
 		{/if}
 	</svelte:fragment>
 
 	<svelte:fragment slot="middle">
-		<Search bind:value={filter} on:submit={search} />
+		<Search on:submit={search} />
 	</svelte:fragment>
 
 	<svelte:fragment slot="end">
@@ -140,7 +105,7 @@
 				{/each}
 			</Grid>
 
-			<Pager {page} pages={files.totalPages} on:change={changePage} />
+			<Pager bind:page={$page} pages={files.totalPages} />
 		{/await}
 	{:else}
 		<Login />

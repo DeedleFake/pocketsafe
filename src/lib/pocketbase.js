@@ -21,6 +21,11 @@ export function assertLogin() {
 	})
 }
 
+export function thumbnail(file) {
+	// TODO: Use a default image for files that aren't images.
+	return pb.files.getUrl(file, file.file, { thumb: '96x96f' })
+}
+
 pb.authStore.onChange((token, model) => {
 	currentUser.set(model)
 })
