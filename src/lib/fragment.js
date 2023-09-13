@@ -29,8 +29,13 @@ export const fragment = {
 
 export function fragmentVar(name, defaultValue, f = (v) => v) {
 	return {
-		subscribe: derived(fragment, ($v) => f($v.get(name) ?? defaultValue))
-			.subscribe,
+		subscribe: derived(fragment, ($v) => {
+			const val = $v.get(name)
+			if (val == null) {
+				return defaultValue
+			}
+			return f(val)
+		}).subscribe,
 		set: (v) => {
 			// TODO: Find a way to structure the stores to make this a bit
 			// less weird.
