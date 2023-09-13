@@ -19,7 +19,7 @@
 
 	let files = null
 
-	const page = fragmentVar('page', 1, (v) => parseInt(v, 10))
+	const page = fragmentVar('page', 1, (v) => Number(v) || 1)
 	const filter = fragmentVar('filter', '')
 
 	function logout(ev) {
