@@ -8,7 +8,10 @@
 	export let page = 1
 	export let pages = 1
 
-	$: if (page > pages) {
+	$: if (pages && (page < 1 || isNaN(page))) {
+		select(null, 1)
+	}
+	$: if (pages && page > pages) {
 		select(null, pages)
 	}
 

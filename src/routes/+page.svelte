@@ -19,7 +19,7 @@
 
 	let files = null
 
-	const page = fragmentVar('page', 1, (v) => Number(v) || 1)
+	const page = fragmentVar('page', 1, (v) => Number(v))
 	const filter = fragmentVar('filter', '')
 
 	function logout(ev) {
@@ -39,6 +39,8 @@
 	}
 
 	function search(ev) {
+		// TODO: This seems to cause two entries to be added to the
+		// browser's history.
 		const { detail: f } = ev
 		$page = 1
 		$filter = f
@@ -70,7 +72,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="middle">
-		<Search on:submit={search} />
+		<Search value={$filter} on:submit={search} />
 	</svelte:fragment>
 
 	<svelte:fragment slot="end">
