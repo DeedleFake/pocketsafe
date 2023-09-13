@@ -1,6 +1,6 @@
 //go:build !ps_dev
 
-//go:generate bun run build
+//go:generate bunx --bun vite build
 
 package main
 
