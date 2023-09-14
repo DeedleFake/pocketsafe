@@ -4,10 +4,8 @@ package main
 
 import (
 	"os"
-
-	"github.com/labstack/echo/v5"
 )
 
-var buildFS = echo.MustSubFS(os.DirFS("."), "build")
+var buildFS = os.DirFS(".")
 
 const enableMigrations = true
