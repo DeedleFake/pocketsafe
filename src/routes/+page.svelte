@@ -93,7 +93,7 @@
 			{/if}
 			<Grid>
 				{#each files.items as file}
-					<Link href={pb.files.getUrl(file, file.file)}>
+					<Link href="/view/{file.id}">
 						<Card size="lg">
 							<img
 								slot="image"
