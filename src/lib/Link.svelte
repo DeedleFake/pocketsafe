@@ -1,7 +1,8 @@
 <script>
 	export let href = '' // The build complains otherwise.
 
-	$: extraStyle = $$props['class'] ?? ''
+	let extraStyle = ''
+	export { extraStyle as class }
 </script>
 
 <a

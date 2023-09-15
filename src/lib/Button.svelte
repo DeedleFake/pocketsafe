@@ -5,6 +5,9 @@
 	export let href = null
 	export let secondary = false
 
+	let extraStyle = ''
+	export { extraStyle as class }
+
 	$: mode = secondary
 		? `
 			bg-teal-500
@@ -28,7 +31,6 @@
 			disabled:text-cyan-700
 			disabled:border-cyan-300
 			`
-	$: extraStyle = $$props['class'] ?? ''
 
 	const dispatch = createEventDispatcher()
 

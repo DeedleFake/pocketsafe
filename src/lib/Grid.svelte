@@ -1,5 +1,6 @@
 <script>
-	$: extraStyle = $$props['class']
+	let extraStyle = ''
+	export { extraStyle as class }
 </script>
 
 <div
