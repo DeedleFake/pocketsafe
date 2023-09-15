@@ -5,6 +5,7 @@
 	import Nav from '$lib/Nav.svelte'
 	import Body from '$lib/Body.svelte'
 	import UploadButton from '$lib/UploadButton.svelte'
+	import Logout from '$lib/Logout.svelte'
 	import Search from '$lib/Search.svelte'
 	import Pager from '$lib/Pager.svelte'
 	import Login from '$lib/Login.svelte'
@@ -21,10 +22,6 @@
 
 	const page = fragmentVar('page', 1, (v) => Number(v))
 	const filter = fragmentVar('filter', '')
-
-	function logout(ev) {
-		pb.authStore.clear()
-	}
 
 	async function loadFiles(options = {}) {
 		if (files != null) {
@@ -63,24 +60,14 @@
 
 <Nav>
 	<svelte:fragment slot="start">
-		<Link class="hover:opacity-50 transition-all" href="/">
-			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
-		</Link>
 		{#if $currentUser}
 			<UploadButton on:upload={() => ($page = 1)} />
 		{/if}
 	</svelte:fragment>
 
-	<svelte:fragment slot="middle">
-		<Search value={$filter} on:submit={search} />
-	</svelte:fragment>
+	<Search slot="middle" value={$filter} on:submit={search} />
 
-	<svelte:fragment slot="end">
-		{#if $currentUser}
-			<div>{$currentUser.username}</div>
-			<Button on:click={logout}>Logout</Button>
-		{/if}
-	</svelte:fragment>
+	<Logout slot="end" />
 </Nav>
 
 <Body>

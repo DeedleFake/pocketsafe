@@ -3,6 +3,7 @@
 
 	import Nav from '$lib/Nav.svelte'
 	import Body from '$lib/Body.svelte'
+	import Logout from '$lib/Logout.svelte'
 	import Link from '$lib/Link.svelte'
 	import Button from '$lib/Button.svelte'
 	import CircularProgress from '$lib/CircularProgress.svelte'
@@ -18,19 +19,9 @@
 
 	let filepath
 	$: file.then((file) => (filepath = pb.files.getUrl(file, file.file)))
-
-	function logout(ev) {
-		pb.authStore.clear()
-	}
 </script>
 
 <Nav>
-	<svelte:fragment slot="start">
-		<Link class="hover:opacity-50 transition-all" href="/">
-			<img class="max-h-8" src="{assets}/favicon.png" alt="PocketSafe" />
-		</Link>
-	</svelte:fragment>
-
 	<div slot="middle">
 		{#await file}
 			{id}
@@ -39,10 +30,7 @@
 		{/await}
 	</div>
 
-	<svelte:fragment slot="end">
-		<div>{$currentUser.username}</div>
-		<Button on:click={logout}>Logout</Button>
-	</svelte:fragment>
+	<Logout slot="end" />
 </Nav>
 
 <Body>
