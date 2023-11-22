@@ -12,6 +12,8 @@ import (
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
 
+//go:generate go run github.com/a-h/templ/cmd/templ generate
+
 func main() {
 	pb := pocketbase.New()
 	migratecmd.MustRegister(pb, pb.RootCmd, migratecmd.Config{
