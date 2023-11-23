@@ -9,20 +9,20 @@ const (
 	LinkClass = "text-cyan-500 hover:text-cyan-600 active:text-cyan-700 transition-all"
 )
 
-const CircularProgressClass = `
-	w-8
-	h-8
-	p-0.5
-	rounded-full
-	animate-spin
-	bg-gradient-to-r
-	from-transparent
-	via-transparent
-	to-teal-500
-`
-
 templ CircularProgress() {
-	<div class={ CircularProgressClass }>
+	<div
+ 		class="
+			w-8
+			h-8
+			p-0.5
+			rounded-full
+			animate-spin
+			bg-gradient-to-r
+			from-transparent
+			via-transparent
+			to-teal-500
+		"
+	>
 		<div
  			class="
 				w-full
@@ -34,8 +34,6 @@ templ CircularProgress() {
 		></div>
 	</div>
 }
-
-const PagerClass = "flex flex-row justify-between items-center gap-4"
 
 type PagerParams struct {
 	Page, Pages int
@@ -56,7 +54,7 @@ func (p PagerParams) get() string {
 }
 
 templ Pager(p PagerParams) {
-	<div class={ PagerClass }>
+	<div class="flex flex-row justify-between items-center gap-4">
 		if p.Page != 1 {
 			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
 				<a class={ LinkClass }>1</a>
@@ -147,18 +145,6 @@ templ Card(p CardParams) {
 	</div>
 }
 
-const NavClass = `
-	min-h-8
-	p-2
-	flex
-	flex-row
-	justify-between
-	outline
-	outline-2
-	outline-slate-300
-	dark:outline-slate-700
-`
-
 type NavParams struct {
 	Start  templ.Component
 	Middle templ.Component
@@ -168,7 +154,19 @@ type NavParams struct {
 }
 
 templ Nav(p NavParams) {
-	<div class={ NavClass }>
+	<div
+ 		class="
+			min-h-8
+			p-2
+			flex
+			flex-row
+			justify-between
+			outline
+			outline-2
+			outline-slate-300
+			dark:outline-slate-700
+		"
+	>
 		<div class="flex flex-row gap-2 items-center">
 			if p.Logo {
 				<a class={ LinkClass, "hover:opacity-50 transition-all" } href="/">
