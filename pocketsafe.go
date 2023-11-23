@@ -4,7 +4,9 @@ import (
 	"log/slog"
 	"os"
 
+	"deedles.dev/pocketsafe/comp"
 	_ "deedles.dev/pocketsafe/migrations"
+	"github.com/a-h/templ"
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
@@ -26,6 +28,9 @@ func main() {
 			echo.MustSubFS(assets, "assets"),
 			true,
 		))
+
+		e.Router.GET("/", echo.WrapHandler(templ.Handler(comp.Main())))
+
 		return nil
 	})
 
