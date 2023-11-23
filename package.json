@@ -1,14 +1,14 @@
 {
-  "name": "pocketsafe",
-  "version": "0.0.1",
-  "devDependencies": {
-    "prettier": "^2.8.8",
-    "tailwindcss": "^3.3.3"
-  },
-  "private": true,
-  "scripts": {
-		"build": "tailwindcss -i ./src/app.css -o ./assets/app.css",
-    "fmt": "prettier --write --plugin-search-dir=. ."
-  },
-  "type": "module"
+	"name": "pocketsafe",
+	"version": "0.0.1",
+	"devDependencies": {
+		"prettier": "^2.8.8",
+		"tailwindcss": "^3.3.3"
+	},
+	"private": true,
+	"scripts": {
+		"build": "tailwindcss -i ./src/app.css -o ./assets/tailwind.css",
+		"fmt": "prettier --write --plugin-search-dir=. ."
+	},
+	"type": "module"
 }

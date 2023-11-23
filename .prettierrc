@@ -4,9 +4,5 @@
 	"singleQuote": true,
 	"bracketSpacing": true,
 	"arrowParens": "always",
-	"trailingComma": "all",
-	"svelteSortOrder": "options-scripts-styles-markup",
-	"plugins": ["prettier-plugin-svelte"],
-	"pluginSearchDirs": ["."],
-	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+	"trailingComma": "all"
 }
