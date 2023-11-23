@@ -1,3 +1,7 @@
 /migrations/** binary
 *_templ.go binary
+
+/assets/tailwind.css binary
+/assets/htmx.min.js binary
+
 *.lockb diff=lockb

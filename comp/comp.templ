@@ -1,5 +1,237 @@
 package comp
 
-templ List(page, pages int) {
-	@pager(page, pages, "/hx/page")
+import (
+	"fmt"
+	"strconv"
+)
+
+const (
+	LinkClass = "text-cyan-500 hover:text-cyan-600 active:text-cyan-700 transition-all"
+)
+
+const CircularProgressClass = `
+	w-8
+	h-8
+	p-0.5
+	rounded-full
+	animate-spin
+	bg-gradient-to-r
+	from-transparent
+	via-transparent
+	to-teal-500
+`
+
+templ CircularProgress() {
+	<div class={ CircularProgressClass }>
+		<div
+ 			class="
+				w-full
+				h-full
+				rounded-full
+				bg-slate-200
+				dark:bg-slate-800
+			"
+		></div>
+	</div>
+}
+
+const PagerClass = "flex flex-row justify-between items-center gap-4"
+
+type PagerParams struct {
+	Page, Pages int
+	Get         templ.SafeURL
+	Target      string
+}
+
+func (p PagerParams) page() string {
+	return strconv.FormatInt(int64(p.Page), 10)
+}
+
+func (p PagerParams) pages() string {
+	return strconv.FormatInt(int64(p.Pages), 10)
+}
+
+func (p PagerParams) get() string {
+	return string(p.Get)
+}
+
+templ Pager(p PagerParams) {
+	<div class={ PagerClass }>
+		if p.Page != 1 {
+			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
+				<a class={ LinkClass }>1</a>
+				@value("page", 1)
+			</form>
+			<div>...</div>
+		}
+		for n := p.Page - 2; n <= p.Page + 2; n++ {
+			if n == p.Page {
+				<div>{ p.page() }</div>
+			} else if (n > 1) && (n < p.Pages) {
+				<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
+					<a class={ LinkClass }>{ strconv.FormatInt(int64(n), 10) }</a>
+					@value("page", n)
+				</form>
+			}
+		}
+		if p.Page != p.Pages {
+			<div>...</div>
+			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
+				<a class={ LinkClass }>{ p.pages() }</a>
+				@value("page", p.Pages)
+			</form>
+		}
+	</div>
+}
+
+const CardClass = `
+	group
+	flex
+	flex-col
+	p-2
+	gap-2
+	rounded-2xl
+	shadow-lg
+	bg-slate-100
+	transition-all
+	dark:bg-slate-900
+	dark:outline
+	dark:outline-2
+	dark:outline-cyan-900
+	hover:shadow-xl
+`
+
+type CardParams struct {
+	Size string
+
+	Class    string
+	Image    templ.Component
+	Subtitle templ.Component
+}
+
+func (p CardParams) sizeClass() string {
+	switch p.Size {
+	case "sm":
+		return "w-24 h-24"
+	case "lg":
+		return "w-96 h-96"
+	default:
+		return "w-48 h-48"
+	}
+}
+
+templ Card(p CardParams) {
+	<div
+ 		class={ CardClass, p.sizeClass(), p.Class }
+	>
+		<div
+ 			class="
+			 flex
+			 flex-col
+			 grow
+			 justify-center
+			 items-stretch
+			 rounded-lg
+			 overflow-hidden
+			 transition-all
+			 group-hover:opacity-80
+			"
+		>
+			@p.Image
+		</div>
+		if p.Subtitle != nil {
+			<div class="flex flex-col items-center overflow-x-auto">
+				@p.Subtitle
+			</div>
+		}
+	</div>
+}
+
+const NavClass = `
+	min-h-8
+	p-2
+	flex
+	flex-row
+	justify-between
+	outline
+	outline-2
+	outline-slate-300
+	dark:outline-slate-700
+`
+
+type NavParams struct {
+	Start  templ.Component
+	Middle templ.Component
+	End    templ.Component
+
+	Logo bool
+}
+
+templ Nav(p NavParams) {
+	<div class={ NavClass }>
+		<div class="flex flex-row gap-2 items-center">
+			if p.Logo {
+				<a class={ LinkClass, "hover:opacity-50 transition-all" } href="/">
+					<img class="max-h-8" src="/assets/favicon.png" alt="PocketSafe"/>
+				</a>
+			}
+			@p.Start
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			@p.Middle
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			@p.End
+		</div>
+	</div>
+}
+
+templ value(name string, value any) {
+	<input type="hidden" name={ name } value={ fmt.Sprint(value) }/>
+}
+
+type ListParams struct {
+	Page, Pages int
+}
+
+templ List(p ListParams) {
+	<div id="list">
+		@Pager(PagerParams{
+		Page: p.Page,
+		Pages: p.Pages,
+		Get: "/hx/page",
+		Target: "#list",
+		})
+	</div>
+}
+
+templ Body() {
+	<div class="flex flex-col grow justify-center items-center gap-2">
+		{ children... }
+	</div>
+}
+
+templ Layout() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<link rel="icon" href="/assets/favicon.png"/>
+			<meta name="viewport" content="width=device-width"/>
+			<title>PocketSafe</title>
+			<link rel="stylesheet" href="/assets/tailwind.css"/>
+			<script type="application/javascript" src="/assets/htmx.min.js"></script>
+		</head>
+		<body
+ 			class="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-100"
+		>
+			{ children... }
+		</body>
+	</html>
+}
+
+templ Main() {
+	@Layout() {
+		@List(ListParams{Page: 1, Pages: 10})
+	}
 }
