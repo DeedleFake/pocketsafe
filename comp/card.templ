@@ -59,11 +59,11 @@ templ card(size string, opt *cardOptions) {
 			 group-hover:opacity-80
 			"
 		>
-			@image
+			@opt.Image
 		</div>
-		if subtitle != nil {
+		if opt.get().Subtitle != nil {
 			<div class="flex flex-col items-center overflow-x-auto">
-				@subtitle
+				@opt.Subtitle
 			</div>
 		}
 	</div>

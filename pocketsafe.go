@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"log/slog"
 	"os"
 
@@ -17,6 +19,11 @@ import (
 //go:generate bun run build
 //go:generate go run github.com/a-h/templ/cmd/templ generate
 
+func hxPage(ctx echo.Context) error {
+	fmt.Printf("%+v\n", ctx.QueryParams())
+	return errors.New("do nothing")
+}
+
 func main() {
 	pb := pocketbase.New()
 	migratecmd.MustRegister(pb, pb.RootCmd, migratecmd.Config{
@@ -29,6 +36,7 @@ func main() {
 			true,
 		))
 
+		e.Router.GET("/hx/page", hxPage)
 		e.Router.GET("/", echo.WrapHandler(templ.Handler(comp.Main())))
 
 		return nil
