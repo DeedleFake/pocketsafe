@@ -2,19 +2,12 @@
   "name": "pocketsafe",
   "version": "0.0.1",
   "devDependencies": {
-    "autoprefixer": "^10.4.16",
-    "htmx.org": "^1.9.9",
-    "pocketbase": "^0.18.0",
-    "postcss": "^8.4.31",
     "prettier": "^2.8.8",
-    "tailwindcss": "^3.3.3",
-    "vite": "^5.0.2"
+    "tailwindcss": "^3.3.3"
   },
   "private": true,
   "scripts": {
-    "start": "hivemind Procfile",
-    "dev": "vite dev",
-    "build": "vite build",
+		"build": "tailwindcss -i ./src/app.css -o ./assets/app.css",
     "fmt": "prettier --write --plugin-search-dir=. ."
   },
   "type": "module"

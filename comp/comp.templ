@@ -1,6 +1,6 @@
 package comp
 
-templ Layout(comp templ.Component) {
+templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -13,7 +13,7 @@ templ Layout(comp templ.Component) {
 		<body
  			class="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-100"
 		>
-			@comp
+			{ children... }
 		</body>
 	</html>
 }

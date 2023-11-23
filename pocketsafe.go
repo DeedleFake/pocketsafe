@@ -12,6 +12,7 @@ import (
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
 
+//go:generate bun run build
 //go:generate go run github.com/a-h/templ/cmd/templ generate
 
 func main() {
@@ -21,8 +22,8 @@ func main() {
 	})
 
 	pb.OnBeforeServe().Add(func(e *core.ServeEvent) error {
-		e.Router.GET("/*", apis.StaticDirectoryHandler(
-			echo.MustSubFS(buildFS, "build"),
+		e.Router.GET("/assets/*", apis.StaticDirectoryHandler(
+			echo.MustSubFS(assets, "assets"),
 			true,
 		))
 		return nil

@@ -6,6 +6,6 @@ import (
 	"os"
 )
 
-var buildFS = os.DirFS(".")
+var assets = os.DirFS(".")
 
 const enableMigrations = true
