@@ -1,5 +1,22 @@
 package comp
 
+const cardClasses = `
+	group
+	flex
+	flex-col
+	p-2
+	gap-2
+	rounded-2xl
+	shadow-lg
+	bg-slate-100
+	transition-all
+	dark:bg-slate-900
+	dark:outline
+	dark:outline-2
+	dark:outline-cyan-900
+	hover:shadow-xl
+`
+
 type cardOptions struct {
 	Class    string
 	Image    templ.Component
@@ -27,24 +44,7 @@ func cardSizeClasses(size string) string {
 
 templ card(size string, opt *cardOptions) {
 	<div
- 		class={ `
-			group
-			flex
-			flex-col
-			p-2
-			gap-2
-			rounded-2xl
-			shadow-lg
-			bg-slate-100
-			transition-all
-			dark:bg-slate-900
-			dark:outline
-			dark:outline-2
-			dark:outline-cyan-900
-			hover:shadow-xl
-		`,
-		cardSizeClasses(size),
-		opt.get().Class }
+ 		class={ cardClasses, cardSizeClasses(size), opt.get().Class }
 	>
 		<div
  			class="

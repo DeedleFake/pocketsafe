@@ -10,6 +10,18 @@ import "context"
 import "io"
 import "bytes"
 
+const circularProgressClasses = `
+ w-8
+ h-8
+ p-0.5
+ rounded-full
+ animate-spin
+ bg-gradient-to-r
+ from-transparent
+ via-transparent
+ to-teal-500
+`
+
 func circularProgress() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -23,7 +35,20 @@ func circularProgress() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"\n		 w-8\n		 h-8\n		 p-0.5\n		 rounded-full\n		 animate-spin\n		 bg-gradient-to-r\n		 from-transparent\n		 via-transparent\n		 to-teal-500\n		\"><div class=\"\n				w-full\n				h-full\n				rounded-full\n				bg-slate-200\n				dark:bg-slate-800\n			\"></div></div>")
+		var templ_7745c5c3_Var2 = []any{circularProgressClasses}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ.CSSClasses(templ_7745c5c3_Var2).String()))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"\n				w-full\n				h-full\n				rounded-full\n				bg-slate-200\n				dark:bg-slate-800\n			\"></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

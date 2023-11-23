@@ -10,6 +10,23 @@ import "context"
 import "io"
 import "bytes"
 
+const cardClasses = `
+	group
+	flex
+	flex-col
+	p-2
+	gap-2
+	rounded-2xl
+	shadow-lg
+	bg-slate-100
+	transition-all
+	dark:bg-slate-900
+	dark:outline
+	dark:outline-2
+	dark:outline-cyan-900
+	hover:shadow-xl
+`
+
 type cardOptions struct {
 	Class    string
 	Image    templ.Component
@@ -48,24 +65,7 @@ func card(size string, opt *cardOptions) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{`
-			group
-			flex
-			flex-col
-			p-2
-			gap-2
-			rounded-2xl
-			shadow-lg
-			bg-slate-100
-			transition-all
-			dark:bg-slate-900
-			dark:outline
-			dark:outline-2
-			dark:outline-cyan-900
-			hover:shadow-xl
-		`,
-			cardSizeClasses(size),
-			opt.get().Class}
+		var templ_7745c5c3_Var2 = []any{cardClasses, cardSizeClasses(size), opt.get().Class}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

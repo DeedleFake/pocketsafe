@@ -1,0 +1,50 @@
+package comp
+
+const navClasses = `
+	min-h-8
+	p-2
+	flex
+	flex-row
+	justify-between
+	outline
+	outline-2
+	outline-slate-300
+	dark:outline-slate-700
+`
+
+type navSections struct {
+	Start  templ.Component
+	Middle templ.Component
+	End    templ.Component
+}
+
+type navOptions struct {
+	Logo bool
+}
+
+func (opt *navOptions) get() *navOptions {
+	if opt != nil {
+		return opt
+	}
+
+	return &navOptions{}
+}
+
+templ nav(sections navSections, options *navOptions) {
+	<div class={ navClasses }>
+		<div class="flex flex-row gap-2 items-center">
+			if options.get().Logo {
+				<a class={ linkClasses, "hover:opacity-50 transition-all" } href="/">
+					<img class="max-h-8" src="/assets/favicon.png" alt="PocketSafe"/>
+				</a>
+			}
+			@sections.Start
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			@sections.Middle
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			@sections.End
+		</div>
+	</div>
+}
