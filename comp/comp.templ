@@ -58,7 +58,7 @@ templ Pager(p PagerParams) {
 		if p.Page != 1 {
 			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
 				<a class={ LinkClass }>1</a>
-				@value("page", 1)
+				@Value("page", 1)
 			</form>
 			<div>...</div>
 		}
@@ -68,7 +68,7 @@ templ Pager(p PagerParams) {
 			} else if (n > 1) && (n < p.Pages) {
 				<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
 					<a class={ LinkClass }>{ strconv.FormatInt(int64(n), 10) }</a>
-					@value("page", n)
+					@Value("page", n)
 				</form>
 			}
 		}
@@ -76,7 +76,7 @@ templ Pager(p PagerParams) {
 			<div>...</div>
 			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
 				<a class={ LinkClass }>{ p.pages() }</a>
-				@value("page", p.Pages)
+				@Value("page", p.Pages)
 			</form>
 		}
 	</div>
@@ -184,7 +184,7 @@ templ Nav(p NavParams) {
 	</div>
 }
 
-templ value(name string, value any) {
+templ Value(name string, value any) {
 	<input type="hidden" name={ name } value={ fmt.Sprint(value) }/>
 }
 
