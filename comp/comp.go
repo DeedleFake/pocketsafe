@@ -1,8 +1,10 @@
 package comp
 
 import (
+	"encoding/json"
 	"errors"
 	"io"
+	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v5"
@@ -30,4 +32,12 @@ func (r renderer) Render(w io.Writer, name string, data any, ctx echo.Context) e
 
 func Renderer() echo.Renderer {
 	return renderer{}
+}
+
+type vals map[string]any
+
+func (v vals) String() string {
+	var buf strings.Builder
+	json.NewEncoder(&buf).Encode(v)
+	return buf.String()
 }

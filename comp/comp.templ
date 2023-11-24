@@ -54,30 +54,37 @@ func (p PagerParams) get() string {
 }
 
 templ Pager(p PagerParams) {
-	<div class="flex flex-row justify-between items-center gap-4">
+	<div
+ 		class="flex flex-row justify-between items-center gap-4"
+ 		hx-target={ p.Target }
+ 		hx-swap="outerHTML"
+	>
 		if p.Page != 1 {
-			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
-				<a class={ LinkClass }>1</a>
-				@Value("page", 1)
-			</form>
+			<a
+ 				class={ LinkClass }
+ 				hx-get={ p.get() }
+ 				hx-vals={ vals{"page": 1}.String() }
+			>1</a>
 			<div>...</div>
 		}
 		for n := p.Page - 2; n <= p.Page + 2; n++ {
 			if n == p.Page {
 				<div>{ p.page() }</div>
 			} else if (n > 1) && (n < p.Pages) {
-				<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
-					<a class={ LinkClass }>{ strconv.FormatInt(int64(n), 10) }</a>
-					@Value("page", n)
-				</form>
+				<a
+ 					class={ LinkClass }
+ 					hx-get={ p.get() }
+ 					hx-vals={ vals{"page": n}.String() }
+				>{ strconv.FormatInt(int64(n), 10) }</a>
 			}
 		}
 		if p.Page != p.Pages {
 			<div>...</div>
-			<form hx-get={ p.get() } hx-trigger="click" hx-target={ p.Target } hx-swap="outerHTML">
-				<a class={ LinkClass }>{ p.pages() }</a>
-				@Value("page", p.Pages)
-			</form>
+			<a
+ 				class={ LinkClass }
+ 				hx-get={ p.get() }
+ 				hx-vals={ vals{"page": p.Pages}.String() }
+			>{ p.pages() }</a>
 		}
 	</div>
 }
