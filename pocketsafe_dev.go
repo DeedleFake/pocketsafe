@@ -2,10 +2,4 @@
 
 package main
 
-import (
-	"os"
-)
-
-var assets = os.DirFS(".")
-
 const enableMigrations = true

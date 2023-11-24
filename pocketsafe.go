@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"log/slog"
 	"net/http"
 	"os"
@@ -18,6 +19,9 @@ import (
 
 //go:generate bun run build
 //go:generate go run github.com/a-h/templ/cmd/templ generate
+
+//go:embed all:assets
+var assets embed.FS
 
 func hxListPage(ctx echo.Context) error {
 	page, err := strconv.ParseInt(ctx.QueryParam("page"), 10, 0)
